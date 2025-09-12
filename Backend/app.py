@@ -1,9 +1,9 @@
 from fastapi import FastAPI, File, UploadFile
 from pathlib import Path
 import shutil
-
+from audio_module.audioEmotion import classify_audio
 # Import your existing functions
-from audio_module.SpeechtoText import speech_to_text, get_emotion
+from audio_module.SpeechtoText import speech_to_text
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ async def analyze_audio(file: UploadFile = File(...)):
     transcription = speech_to_text(str(file_path))
 
     # Call your emotion detection function
-    emotion = get_emotion(str(file_path))
+    emotion = classify_audio(str(file_path))
 
     return {
         "transcription": transcription,
