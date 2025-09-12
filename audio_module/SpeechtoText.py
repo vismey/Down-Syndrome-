@@ -43,3 +43,4 @@ def transcribe_file(audio_path: str) -> dict:
 
 def speech_to_text(audio_path):
     return transcribe_file(audio_path)
+
