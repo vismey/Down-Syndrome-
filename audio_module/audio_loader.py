@@ -6,8 +6,10 @@ from scipy.signal import butter, lfilter
 
 def butter_bandpass(lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
-    low = lowcut / nyq
-    high = highcut / nyq
+    low = max(lowcut / nyq, 1e-5)  # ensure > 0
+    high = min(highcut / nyq, 0.999)  # ensure < 1
+    if low >= high:
+        raise ValueError(f"Invalid bandpass frequencies: lowcut={lowcut}, highcut={highcut}, fs={fs}")
     b, a = butter(order, [low, high], btype="band")
     return b, a
 
@@ -46,7 +48,3 @@ def preprocess_audio(input_file, output_file="processed.wav", target_sr=16000):
     sf.write(output_file, y, target_sr)
     return output_file
 
-
-if __name__ == "__main__":
-    processed = preprocess_audio("raw_input.wav")
-    print("Preprocessed file saved:", processed)
