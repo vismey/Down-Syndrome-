@@ -26,8 +26,8 @@ async def analyze_video_audio(file: UploadFile = File(...)):
     clip.audio.write_audiofile(audio_path)
 
     # Call your existing modules
-    transcription = speech_to_text(audio_path)   # from audio_module
-    audio_emotion = classify_audio(audio_path)   # from audio_module
+    transcription = await speech_to_text(audio_path)   # from audio_module
+    audio_emotion = await classify_audio(audio_path)   # from audio_module
     video_emotion, v_confidence = v_emotion(str(file_path))  # from facial_module
     data = {
         'message': f"""
@@ -50,7 +50,7 @@ async def analyze_video_audio(file: UploadFile = File(...)):
     Now process the input and give the final text output only.
     """
     }
-    respo = Query_llm(data)
+    respo = await Query_llm(data)
     return {
         "transcription": transcription,
         "audio_emotion": audio_emotion,
