@@ -1,10 +1,14 @@
 import requests
 
-def query_ollama(model: str, prompt: str):
-    url = "http://localhost:11434/api/chat"
-    payload = {
-        "model": model,   # e.g., "mapler/gpt2"
-        "messages": [{"role": "user", "content": prompt}]
-    }
-    response = requests.post(url, json=payload)
-    return response.json()[""]["content"]
+url = "https://apifreellm.com/api/chat"
+headers = {
+  "Content-Type": "application/json"
+}
+
+def Query_llm(data):
+  resp = requests.post(url, headers=headers, json=data)
+  js = resp.json()
+  if js.get('status') == 'success':
+    return(js['response'])
+  else:
+    return ('Error:', js.get('error'), js.get('status'))
