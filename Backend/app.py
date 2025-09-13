@@ -4,6 +4,9 @@ import shutil
 from audio_module.audioEmotion import classify_audio
 # Import your existing functions
 from audio_module.SpeechtoText import speech_to_text
+from facial_module.Facial_Emotions import v_emotion
+from FinalInput import query_ollama
+
 
 app = FastAPI()
 
@@ -27,3 +30,4 @@ async def analyze_audio(file: UploadFile = File(...)):
         "transcription": transcription,
         "emotion": emotion
     }
+
