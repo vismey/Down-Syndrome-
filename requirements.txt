@@ -2,7 +2,12 @@ opencv-python
 mediapipe
 numpy
 transformers
+audioloader
 torch
 torchvision
 pillow
 librosa
+fastapi
+moviepy
+uvicorn
+requests
