@@ -1,0 +1,8 @@
+opencv-python
+mediapipe
+numpy
+transformers
+torch
+torchvision
+pillow
+librosa
